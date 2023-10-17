@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->year('published_at_year');
+            $table->unsignedSmallInteger('published_at_year');
             $table->text('description');
             $table->integer('available_amount');
+            $table
+                ->foreignId('category_id')
+                ->nullable()
+                ->constrained('categories')
+                ->nullOnDelete();
             $table->timestamps();
         });
     }

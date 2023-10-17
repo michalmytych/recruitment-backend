@@ -9,9 +9,7 @@ use App\Http\Requests\Web\Library\UpdateRequest;
 use App\Models\Library\Book;
 use App\Services\Library\BookService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class BookController extends Controller
 {
@@ -37,8 +35,10 @@ class BookController extends Controller
         return response()->json(['data' => $book]);
     }
 
-    public function create(CreateRequest $request): JsonResponse
+    public function create(Request $request): JsonResponse
     {
+        dd($request->all());
+
         $this
             ->bookService
             ->create($request->validated());

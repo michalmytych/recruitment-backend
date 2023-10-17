@@ -23,7 +23,9 @@ readonly class BookRepository implements BookRepositoryContract
     {
         return $this
             ->model
+            ->load('category')
             ->query()
+            ->latest()
             ->applyFilter($filter)
             ->paginate($perPage ?? 25);
     }
@@ -33,8 +35,9 @@ readonly class BookRepository implements BookRepositoryContract
         $this->model->fill($data)->save();
     }
 
-    public function save(Book $book): void
+    public function save(Book $book, array $data): void
     {
+        $book->fill($data);
         $book->save();
     }
 
@@ -45,6 +48,6 @@ readonly class BookRepository implements BookRepositoryContract
 
     public function findOneById(mixed $id): ?Book
     {
-        return $this->model->find($id);
+        return $this->model->with('category')->find($id);
     }
 }

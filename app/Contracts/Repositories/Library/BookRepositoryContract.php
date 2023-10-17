@@ -8,11 +8,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface BookRepositoryContract
 {
-    public function findAll(?Filter $filter = null, ?int $perPage = 25): LengthAwarePaginator;
+    public function findAll(?Filter $filter = null, ?int $perPage = 10): LengthAwarePaginator;
 
     public function create(array $data): void;
 
-    public function save(Book $book): void;
+    public function save(Book $book, array $data): void;
 
     public function delete(Book $book): void;
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Library;
 
 
 use App\Models\Library\Book;
+use App\Services\Library\CategoryService;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Filters\FilterFactory;
@@ -16,8 +17,9 @@ use App\Http\Requests\Web\Library\UpdateRequest;
 class BookController extends Controller
 {
     public function __construct(
-        private readonly BookService   $bookService,
-        private readonly FilterFactory $filterFactory
+        private readonly BookService     $bookService,
+        private readonly FilterFactory   $filterFactory,
+        private readonly CategoryService $categoryService
     )
     {
     }
@@ -35,23 +37,28 @@ class BookController extends Controller
         return view('books.show', compact('book'));
     }
 
-    public function create(CreateRequest $request): View|RedirectResponse
+    public function create(): View|RedirectResponse
     {
-        if ($request->isMethod('POST')) {
-            $this
-                ->bookService
-                ->create($request->validated());
+        $categories = $this->categoryService->findAll();
 
-            return to_route('book.index')
-                ->with('message', __('Book created.'));
-        }
+        return view('books.create', compact('categories'));
+    }
 
-        return view('books.create');
+    public function store(CreateRequest $request): RedirectResponse
+    {
+        $this
+            ->bookService
+            ->create($request->validated());
+
+        return to_route('books.index')
+            ->with('message', __('Book created.'));
     }
 
     public function edit(Book $book): View
     {
-        return view('books.edit', compact('book'));
+        $categories = $this->categoryService->findAll();
+
+        return view('books.edit', compact('book', 'categories'));
     }
 
     public function update(UpdateRequest $request, Book $book): RedirectResponse
@@ -60,11 +67,11 @@ class BookController extends Controller
             ->bookService
             ->update($book, $request->validated());
 
-        return to_route('book.index')
+        return to_route('books.index')
             ->with('message', __('Book updated.'));
     }
 
-    public function delete(Request $request, mixed $id): View|RedirectResponse
+    public function destroy(Request $request, mixed $id): View|RedirectResponse
     {
         $book = $this->bookService->findOne($id);
         if ($request->isMethod('DELETE')) {
@@ -72,7 +79,7 @@ class BookController extends Controller
                 ->bookService
                 ->delete($book);
 
-            return redirect(route('book.index'))
+            return to_route('books.index')
                 ->with('message', __('Book deleted.'));
         }
 

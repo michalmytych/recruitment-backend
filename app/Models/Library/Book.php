@@ -6,6 +6,7 @@ use App\Filters\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Library\Filters\BookSearchFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Book extends Model
 {
@@ -17,7 +18,13 @@ class Book extends Model
         'published_at_year',
         'description',
         'available_amount',
+        'category_id'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     static function getCustomFilters(): array
     {

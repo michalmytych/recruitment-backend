@@ -33,8 +33,7 @@ readonly class BookService
 
     public function update(Book $book, array $data): void
     {
-        $book->fill($data);
-        $this->bookRepository->save($book);
+        $this->bookRepository->save($book, $data);
     }
 
     public function delete(Book $book): void

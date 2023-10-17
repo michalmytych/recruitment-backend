@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Library;
 
+use App\Models\Library\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class BookFactory extends Factory
             'published_at_year' => $this->faker->year(2023),
             'description' => $this->faker->realText(300),
             'available_amount' => $this->faker->numberBetween(0, 10),
+            'category_id' => Category::inRandomOrder()->first()->id
         ];
     }
 }
