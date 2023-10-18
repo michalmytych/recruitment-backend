@@ -29,7 +29,10 @@ class BookController extends Controller
         $filter = $this->filterFactory->makeFromRequest($request);
         $perPage = $request->get('per_page');
 
-        return view('books.index', ['books' => $this->bookService->findAll($filter, $perPage)]);
+        return view('books.index', [
+            'categories' => $this->categoryService->findAll(),
+            'books' => $this->bookService->findAll($filter, $perPage)
+        ]);
     }
 
     public function show(Book $book): View
