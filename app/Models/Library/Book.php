@@ -44,6 +44,10 @@ class Book extends Model
                 'operators' => ['contains', 'starts', 'ends', 'eq'],
                 'input' => 'text'
             ],
+            'category_id' => [
+                'operators' => ['eq'],
+                'input' => 'integer'
+            ],
         ];
     }
 }

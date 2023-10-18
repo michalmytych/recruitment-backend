@@ -75,6 +75,23 @@ class Filter
                 );
             }
 
+            if (data_get($filterableColumns, $this->operatorAlias . '.' . 'input') === 'integer') {
+                dd();
+                return $builder->where(
+                    $this->column,
+                    self::SQL_COMPARISON_OPERATORS[$this->operatorAlias],
+                    (integer)$this->value
+                );
+            }
+
+            if (data_get($filterableColumns, $this->operatorAlias . '.' . 'input') === 'float') {
+                return $builder->where(
+                    $this->column,
+                    self::SQL_COMPARISON_OPERATORS[$this->operatorAlias],
+                    (float)$this->value
+                );
+            }
+
             return $builder->where(
                 $this->column,
                 self::SQL_COMPARISON_OPERATORS[$this->operatorAlias],
