@@ -7,7 +7,7 @@ use App\Models\Library\Book;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Contracts\Repositories\Library\BookRepositoryContract;
 
-readonly class BookRepository implements BookRepositoryContract
+readonly class BookEloquentRepository implements BookRepositoryContract
 {
     public function __construct(private Book $model) {}
 

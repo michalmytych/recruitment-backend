@@ -6,7 +6,7 @@ use App\Models\Library\Category;
 use Illuminate\Database\Eloquent\Collection;
 use App\Contracts\Repositories\Library\CategoryRepositoryContract;
 
-readonly class CategoryRepository implements CategoryRepositoryContract
+readonly class CategoryEloquentRepository implements CategoryRepositoryContract
 {
     public function __construct(private Category $model) {}
 

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Web\Library;
 
 
-use App\Models\Library\Book;
-use App\Services\Library\CategoryService;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
 use App\Filters\FilterFactory;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Common\Library\CreateRequest;
+use App\Http\Requests\Common\Library\UpdateRequest;
+use App\Models\Library\Book;
 use App\Services\Library\BookService;
+use App\Services\Library\CategoryService;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Web\Library\CreateRequest;
-use App\Http\Requests\Web\Library\UpdateRequest;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class BookController extends Controller
 {

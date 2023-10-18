@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Web\Library;
+namespace App\Http\Requests\Common\Library;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     public function rules(): array
     {

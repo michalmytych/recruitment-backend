@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\Library;
 
 use App\Filters\FilterFactory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Web\Library\CreateRequest;
-use App\Http\Requests\Web\Library\UpdateRequest;
+use App\Http\Requests\Common\Library\UpdateRequest;
 use App\Models\Library\Book;
 use App\Services\Library\BookService;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +34,7 @@ class BookController extends Controller
         return response()->json(['data' => $book]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $this
             ->bookService
@@ -53,7 +52,7 @@ class BookController extends Controller
         return response()->json(['message' => 'Updated.']);
     }
 
-    public function delete(Book $book): JsonResponse
+    public function destroy(Book $book): JsonResponse
     {
         $this->bookService->delete($book);
 
