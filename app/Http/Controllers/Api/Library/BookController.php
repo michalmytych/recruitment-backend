@@ -37,8 +37,6 @@ class BookController extends Controller
 
     public function create(Request $request): JsonResponse
     {
-        dd($request->all());
-
         $this
             ->bookService
             ->create($request->validated());
