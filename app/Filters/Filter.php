@@ -76,7 +76,6 @@ class Filter
             }
 
             if (data_get($filterableColumns, $this->operatorAlias . '.' . 'input') === 'integer') {
-                dd();
                 return $builder->where(
                     $this->column,
                     self::SQL_COMPARISON_OPERATORS[$this->operatorAlias],
