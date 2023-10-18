@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\Library\BookController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\UserController;
+use App\Http\Controllers\Api\Library\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->as('api.')->group(function() {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+Route::as('api.')->group(function() {
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/register', [UserController::class, 'register'])->name('register');
 
-    Route::apiResource('books', BookController::class);
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::get('/user', [UserController::class, 'user'])->name('user');
+        Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+        Route::apiResource('books', BookController::class);
+    });
 });
